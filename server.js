@@ -30,10 +30,9 @@ app.get('/', function (req, res) {
 app.get('/api/:date', function (req, res) {
   const { date } = req.params;
   const dateObj = new Date(date);
-  res.json({
-    unix: dateObj.getTime(),
-    natural: dateObj.toUTCString(),
-  });
+
+  if (isNaN(dateObj.getTime())) res.json({ error: 'Invalid Date' });
+  else res.json({ unix: dateObj.getTime(), utc: dateObj.toUTCString() });
 });
 
 // listen for requests :)
