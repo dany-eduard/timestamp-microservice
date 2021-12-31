@@ -35,8 +35,9 @@ app.get('/api', function (req, res) {
 app.get('/api/:date', function (req, res) {
   const { date } = req.params;
   const dateObj = isNaN(date) ? new Date(date) : new Date(+date);
+  console.log('🚀 ~ file: server.js ~ line 38 ~ dateObj', dateObj);
 
-  if (!dateObj instanceof Date) res.json({ error: 'Invalid Date' });
+  if (!dateObj instanceof Date || isNaN(dateObj)) res.json({ error: 'Invalid Date' });
   else res.json({ unix: dateObj.getTime(), utc: dateObj.toUTCString() });
 });
 
